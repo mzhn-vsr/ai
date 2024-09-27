@@ -26,13 +26,11 @@ documents = [
 
 class RESTDocstore(Docstore, AddableMixin):
     def __init__(self):
-        self.base_url = "http://localhost:3000"
+        self.base_url = "http://23.95.113.79:7002/faq"
         pass
 
     def search(self, search: str) -> Union[str, Document]:
-        """
-        doc_id = search
-        response = requests.get(f"{self.base_url}/docs/{doc_id}")
+        response = requests.get(f"{self.base_url}/{search}")
 
         if response.status_code == 200:
             data = response.json()
@@ -45,14 +43,6 @@ class RESTDocstore(Docstore, AddableMixin):
             )
         else:
             return f"ID {search} not found."
-        """
-        d = documents[int(search)]
-        return Document(
-            page_content=d["question"],
-            metadata={
-                "answer": d["answer"],
-            },
-        )
 
     def add(self, texts: Dict[str, Document]) -> None:
         """
