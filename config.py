@@ -1,0 +1,2 @@
+import os
+DOCUMENT_ENDPOINT = os.getenv('DOCUMENT_ENDPOINT')

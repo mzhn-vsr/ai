@@ -23,13 +23,13 @@ else:
 
 index_to_docstore_id = faiss_index.index_to_docstore_id
 
-from rest_docstore import documents
 from langchain_core.documents import Document
 
-import requests # type: ignore
+import requests
+import config 
 
 def load_data():
-    url = 'http://23.95.113.79:7002/faq'
+    url = config.DOCUMENT_ENDPOINT
     limit = 100 
     offset = 0 
     while True:

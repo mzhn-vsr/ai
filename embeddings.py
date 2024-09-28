@@ -1,9 +1,5 @@
 import constants
 
-from langchain_ollama import (
-    OllamaEmbeddings
-)
-
 from langchain_huggingface import (
     HuggingFaceEmbeddings
 )
