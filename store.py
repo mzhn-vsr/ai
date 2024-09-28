@@ -1,8 +1,11 @@
 import os
 
 import faiss
+import requests
 from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 
+import config
 from ai.embeddings import embeddings
 from rest_docstore import RESTDocstore
 
@@ -24,19 +27,18 @@ else:
 
 index_to_docstore_id = faiss_index.index_to_docstore_id
 
-import requests
-from langchain_core.documents import Document
-
-import config
-
 
 def load_data():
     url = config.DOCUMENT_ENDPOINT
     limit = 100
     offset = 0
     while True:
-        response = requests.get(f"{url}?limit={limit}&offset={offset}")
-        data = response.json()
+        try:
+            response = requests.get(f"{url}?limit={limit}&offset={offset}")
+            data = response.json()
+        except Exception:
+            print(f"Cannot reach {url} for update FAQ")
+            break
 
         if not data or len(data["items"]) == 0:
             break
