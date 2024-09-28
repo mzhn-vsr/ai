@@ -5,7 +5,7 @@ from langchain_core.messages.ai import AIMessage
 
 chat = ChatOllama(
     model=constants.CHAT_MODEL,
-    temperature = 0.1,
+    temperature = 0.05,
     num_predict = 256,
 )
 
