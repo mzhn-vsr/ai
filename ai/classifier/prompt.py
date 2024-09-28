@@ -1,12 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate
-from ai.chat import chat
-from ai.context_chain import context_chain, retriever
-from langchain_core.runnables import RunnablePassthrough
-from langchain_core.output_parsers import JsonOutputParser
 
 f = open('classes.csv')
-
 classes = f.read()
+f.close()
 
 SYSTEM_TEMPLATE = """
 As an assistant, your task is to act as a question classification expert.
@@ -44,6 +40,7 @@ rules also apply if
 - I tell you that I've already given the correct phrase
 """
 
+
 classifier_prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -52,14 +49,4 @@ classifier_prompt = ChatPromptTemplate.from_messages(
         ),
         ("human", "{input}"),
     ]
-)
-
-def format_docs(docs):
-    return "\n\n".join(f"Q: {doc.page_content}\nA:{doc.metadata['classifier1']},{doc.metadata['classifier2']}" for doc in docs)
-
-classifier_chain = (
-    {"context": retriever | format_docs, "input": RunnablePassthrough() }
-    | classifier_prompt 
-    | chat
-    | JsonOutputParser()
 )

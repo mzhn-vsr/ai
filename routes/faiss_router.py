@@ -20,9 +20,9 @@ def add_to_faiss(documents: List[DocumentInput]):
             Document(
                 page_content=doc.question, 
                 metadata={
-                    "answer": data["answer"],
-                    "classifier1": data["classifier1"] or "ОТСУТСТВУЕТ",
-                    "classifier2": data["classifier2"] or "Отсутствует",
+                    "answer": doc["answer"],
+                    "classifier1": doc["classifier1"] or "ОТСУТСТВУЕТ",
+                    "classifier2": doc["classifier2"] or "Отсутствует",
                 }
             )
             for doc in documents

@@ -3,7 +3,7 @@ from langchain_community.vectorstores import FAISS
 import faiss
 from rest_docstore import RESTDocstore
 
-from embeddings import embeddings
+from ai.embeddings import embeddings
 
 docstore = RESTDocstore()
 
