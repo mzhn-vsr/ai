@@ -14,6 +14,8 @@ class DocumentInput(BaseModel):
     id: str
     question: str
     answer: str
+    classifier1: str | None
+    classifier2: str | None
 
 
 @router.put("/add")
