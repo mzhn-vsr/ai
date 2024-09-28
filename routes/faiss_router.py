@@ -38,9 +38,7 @@ def add_to_faiss(documents: List[DocumentInput]):
 
 @router.delete("/delete")
 def delete_from_faiss(ids: List[str]):
-    common_ids = set(ids).intersection(
-        faiss_index.index_to_docstore_id.values()
-    )
+    common_ids = set(ids).intersection(faiss_index.index_to_docstore_id.values())
     if not common_ids:
         return {"message": "OK"}
 

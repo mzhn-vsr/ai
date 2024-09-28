@@ -15,10 +15,7 @@ def format_classifier_docs(docs):
 
 
 classifier_chain = (
-    {
-        "context": retriever | format_classifier_docs,
-        "input": RunnablePassthrough()
-    }
+    {"context": retriever | format_classifier_docs, "input": RunnablePassthrough()}
     | classifier_prompt
     | chat
     | JsonOutputParser()

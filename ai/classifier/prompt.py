@@ -1,6 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-f = open("classes.csv")
+from config import CLASSES_PATH
+
+f = open(CLASSES_PATH)
 classes = f.read()
 f.close()
 
