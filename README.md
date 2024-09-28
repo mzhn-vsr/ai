@@ -22,6 +22,14 @@ $ pip install -r requirements.txt
 $ ollama pull krith/qwen2.5-14b-instruct:IQ4_XS
 ```
 
+### Настройка
+
+```
+$ cp .env.example .env
+```
+
+Настройте env в соответствии с комментариями
+
 ### Запуск
 
 > [!] Перед запуском необходимо запустить [managment](https://github.com/mzhn-vsr/management) сервис.

@@ -1,6 +1,6 @@
 import os
 
-# Endpoint содержащий базу знаний (RESTDocStore)
+# Endpoint содержащий базу знаний
 DOCUMENT_ENDPOINT = os.getenv("DOCUMENT_ENDPOINT")
 
 # Путь хранения FAISS
