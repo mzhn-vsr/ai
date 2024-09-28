@@ -20,6 +20,8 @@ class RESTDocstore(Docstore, AddableMixin):
                 page_content=data["question"],
                 metadata={
                     "answer": data["answer"],
+                    "classifier1": data["classifier1"] or "ОТСУТСТВУЕТ",
+                    "classifier2": data["classifier2"] or "Отсутствует",
                 }
             )
         else:

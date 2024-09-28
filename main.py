@@ -21,5 +21,5 @@ add_routes(
 add_routes(
     app,
     classifier_chain,
-    path="/classifier_chain"
+    path="/classifier"
 )

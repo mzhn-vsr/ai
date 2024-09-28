@@ -1,0 +1,10 @@
+python-dotenv==1.0.1
+fastapi==0.115.0
+uvicorn==0.31.0
+langchain_core==0.3.6
+langchain_huggingface==0.1.0
+langchain_community==0.3.1
+langchain_ollama==0.2.0
+langserve==0.3.0
+faiss-gpu==1.7.2
+sse-starlette==2.1.3
