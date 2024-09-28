@@ -10,5 +10,6 @@ app.include_router(faiss_router, prefix="/faiss")
 add_routes(
     app,
     chain,
-    path="/chat"
+    path="/chat",
+    # playground_type="chat"
 )

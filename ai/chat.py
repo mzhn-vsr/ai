@@ -17,4 +17,4 @@ def debug(obj):
     print(obj)
     return obj
 
-chat = chat | qwen_fix
+chat = chat #| qwen_fix
