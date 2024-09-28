@@ -1,9 +1,10 @@
 import os
-from langchain_community.vectorstores import FAISS
+
 import faiss
-from rest_docstore import RESTDocstore
+from langchain_community.vectorstores import FAISS
 
 from ai.embeddings import embeddings
+from rest_docstore import RESTDocstore
 
 docstore = RESTDocstore()
 
@@ -18,49 +19,45 @@ else:
         index=faiss.IndexFlatL2(len(embeddings.embed_query("hello world"))),
         embedding_function=embeddings,
         docstore=docstore,
-        index_to_docstore_id={}
+        index_to_docstore_id={},
     )
 
 index_to_docstore_id = faiss_index.index_to_docstore_id
 
+import requests
 from langchain_core.documents import Document
 
-import requests
-import config 
+import config
+
 
 def load_data():
     url = config.DOCUMENT_ENDPOINT
-    limit = 100 
-    offset = 0 
+    limit = 100
+    offset = 0
     while True:
-        response = requests.get(
-            f'{url}?limit={limit}&offset={offset}'
-        )
+        response = requests.get(f"{url}?limit={limit}&offset={offset}")
         data = response.json()
-    
-        if not data or len(data['items']) == 0:
-            break
-    
-        total = data['total']
-        items = data['items']
 
-        needed_items = [doc for doc in items if doc['id'] not in index_to_docstore_id.values() ]
+        if not data or len(data["items"]) == 0:
+            break
+
+        total = data["total"]
+        items = data["items"]
+
+        needed_items = [
+            doc for doc in items if doc["id"] not in index_to_docstore_id.values()
+        ]
 
         if len(needed_items) != 0:
-            documents=[
-                Document(page_content=doc['question'])
-                for doc in needed_items
-            ]
-            ids=[doc['id'] for doc in needed_items]
-        
-            faiss_index.add_documents(
-                documents=documents,
-                ids=ids
-            )
-    
+            documents = [Document(page_content=doc["question"]) for doc in needed_items]
+            ids = [doc["id"] for doc in needed_items]
+
+            faiss_index.add_documents(documents=documents, ids=ids)
+
         offset += limit
         if offset >= total:
             break
+
 
 load_data()
 

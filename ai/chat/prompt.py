@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
- 
+
 SYSTEM_TEMPLATE = """
 You are a high-class support chatbot for RUTUBE. RUTUBE is a Russian video platform.
 You are polite and answer to original question.
@@ -44,10 +44,7 @@ IMPORTANT: You MUST say "Я не знаю ответа на ваш вопрос"
 
 main_prompt = ChatPromptTemplate.from_messages(
     [
-        (
-            "system", 
-            SYSTEM_TEMPLATE
-        ),
+        ("system", SYSTEM_TEMPLATE),
         ("human", "{input}"),
     ]
 )

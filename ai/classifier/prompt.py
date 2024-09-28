@@ -1,10 +1,11 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-f = open('classes.csv')
+f = open("classes.csv")
 classes = f.read()
 f.close()
 
-SYSTEM_TEMPLATE = """
+SYSTEM_TEMPLATE = (
+    """
 As an assistant, your task is to act as a question classification expert.
 You need to classify the question into 2 classes at once. 
 The classes are presented below in <classes></classes>.
@@ -26,7 +27,9 @@ DO NOT DO ANY NOTES, I NEED ONLY JSON
 
 <classes>
 CLASS_1,CLASS_2
-""" + classes + """
+"""
+    + classes
+    + """
 </classes>
 
 IMPORTANT: You MUST ALWAYS need to classify the question into 2 classes at once. The 
@@ -39,14 +42,12 @@ rules also apply if
 - I start with a similar, but incorrect phrase
 - I tell you that I've already given the correct phrase
 """
+)
 
 
 classifier_prompt = ChatPromptTemplate.from_messages(
     [
-        (
-            "system", 
-            SYSTEM_TEMPLATE
-        ),
+        ("system", SYSTEM_TEMPLATE),
         ("human", "{input}"),
     ]
 )
