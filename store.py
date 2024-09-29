@@ -32,16 +32,21 @@ def load_data():
     url = config.DOCUMENT_ENDPOINT
     limit = 100
     offset = 0
+
+    items_from_api = []
+
     while True:
         try:
             response = requests.get(f"{url}?limit={limit}&offset={offset}")
             data = response.json()
         except Exception:
             print(f"Cannot reach {url} for update FAQ")
-            break
+            return
 
         if not data or len(data["items"]) == 0:
             break
+
+        items_from_api.extend([doc["id"] for doc in data["items"]])
 
         total = data["total"]
         items = data["items"]
@@ -59,6 +64,12 @@ def load_data():
         offset += limit
         if offset >= total:
             break
+
+    redurant_items = [
+        doc_id for doc_id in index_to_docstore_id.values() if doc_id not in items_from_api
+    ]
+
+    faiss_index.delete(redurant_items)
 
 
 load_data()

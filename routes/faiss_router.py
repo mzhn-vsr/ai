@@ -1,8 +1,8 @@
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter
 from langchain_core.documents import Document
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from config import FAISS_PATH
 from store import faiss_index
@@ -14,8 +14,8 @@ class DocumentInput(BaseModel):
     id: str
     question: str
     answer: str
-    classifier1: str | None
-    classifier2: str | None
+    classifier1: Optional[str] = Field(None)
+    classifier2: Optional[str] = Field(None)
 
 
 @router.put("/add")
@@ -25,9 +25,9 @@ def add_to_faiss(documents: List[DocumentInput]):
             Document(
                 page_content=doc.question,
                 metadata={
-                    "answer": doc["answer"],
-                    "classifier1": doc["classifier1"] or "ОТСУТСТВУЕТ",
-                    "classifier2": doc["classifier2"] or "Отсутствует",
+                    "answer": doc.answer,
+                    "classifier1": doc.classifier1 or "ОТСУТСТВУЕТ",
+                    "classifier2": doc.classifier2 or "Отсутствует",
                 },
             )
             for doc in documents
